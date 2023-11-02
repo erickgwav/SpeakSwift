@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.SpeakSwift" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">#ffffff</item>
+        <item name="colorPrimaryDark">#d9d9d9</item>
+    </style>
+
+    <style name="Theme.SpeakSwift" parent="Base.Theme.SpeakSwift" />
+</resources>
