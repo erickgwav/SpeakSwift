@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onSensorChanged(SensorEvent event) {
             if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-                // Aplicar filtro de suavizado
                 gravity[0] = ALPHA * gravity[0] + (1 - ALPHA) * event.values[0];
                 gravity[1] = ALPHA * gravity[1] + (1 - ALPHA) * event.values[1];
                 gravity[2] = ALPHA * gravity[2] + (1 - ALPHA) * event.values[2];
