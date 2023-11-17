@@ -1,13 +1,21 @@
 package mx.eege.speakswift;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     long currentTime = System.currentTimeMillis();
                     if ((currentTime - lastShakeTime) > 300000) {
                         lastShakeTime = currentTime;
-                        Toast.makeText(getApplicationContext(), "+50 XP", Toast.LENGTH_LONG).show();
+                        showErrorDialog();
                     }
                 }
             }
@@ -66,6 +74,36 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+        }
+
+        private void showErrorDialog(){
+            AlertDialog.Builder builder =
+                    new AlertDialog.Builder
+                            (MainActivity.this, R.style.AlertDialogTheme);
+            View view = LayoutInflater.from(MainActivity.this).inflate(
+                    R.layout.layout_reward_dialog,
+                    (ConstraintLayout)findViewById(R.id.layoutDialogContainer)
+            );
+            builder.setView(view);
+            ((TextView) view.findViewById(R.id.textTitle))
+                    .setText("¡Felicidades!");
+            ((TextView) view.findViewById(R.id.textMessage))
+                    .setText("Has ganado 5 XP. Vuelve a agitar el dispositivo en unos minutos para ganar más XP");
+            ((Button) view.findViewById(R.id.buttonAction))
+                    .setText("Entendido");
+            /*((ImageView) view.findViewById(R.id.imageIcon))
+                    .setImageResource(R.drawable.error);*/
+            final AlertDialog alertDialog = builder.create();
+            view.findViewById(R.id.buttonAction).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    alertDialog.dismiss();
+                }
+            });
+            if (alertDialog.getWindow() != null){
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            }
+            alertDialog.show();
         }
     };
 
