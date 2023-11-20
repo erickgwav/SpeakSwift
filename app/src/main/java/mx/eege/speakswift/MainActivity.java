@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -38,24 +39,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.cuentos) {
-                    showToast("Cuentos seleccionados");
-                    // Lógica para el elemento "Cuentos"
+                    startNewActivity(CuentosListaActivity.class);
                     return true;
                 } else if (item.getItemId() == R.id.chat) {
                     showToast("Chat seleccionado");
-                    // Lógica para el elemento "Chat"
                     return true;
                 } else if (item.getItemId() == R.id.inicio) {
-                    showToast("Inicio seleccionado");
-                    // Lógica para el elemento "Inicio"
+                    startNewActivity(MainActivity.class);
                     return true;
                 } else if (item.getItemId() == R.id.musica) {
                     showToast("Música seleccionada");
-                    // Lógica para el elemento "Música"
                     return true;
                 } else if (item.getItemId() == R.id.dictados) {
                     showToast("Dictados seleccionados");
-                    // Lógica para el elemento "Dictados"
                     return true;
                 }
                 return false;
@@ -67,8 +63,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showToast(String message) {
-        // Muestra un Toast con el mensaje proporcionado
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void startNewActivity(Class<?> cls) {
+        // Inicia una nueva Activity
+        Intent intent = new Intent(MainActivity.this, cls);
+        startActivity(intent);
+        // Opcional: Puedes agregar transiciones de animación entre Activities si lo deseas.
+        // overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        // Estos recursos de animación deben colocarse en el directorio res/anim.
     }
 
     @Override
