@@ -126,65 +126,19 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.732" />
 
-        <ImageView
-            android:id="@+id/libroIcon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/libro"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            style="@style/BottomNavigationView"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:background="@drawable/button_alert_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.130"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.938" />
-
-        <ImageView
-            android:id="@+id/chatIcon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/chat"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.320"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.942" />
-
-        <ImageView
-            android:id="@+id/inicioIcon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/inicio"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.500"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.942" />
-
-        <ImageView
-            android:id="@+id/musicaIcon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/musica"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.690"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.942" />
-
-        <ImageView
-            android:id="@+id/userIcon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/user"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.880"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.942" />
+            app:layout_constraintVertical_bias="0.976"
+            app:menu="@menu/bottom_nav_menu" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

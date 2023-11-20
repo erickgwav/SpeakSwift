@@ -36,8 +36,6 @@ public class MainView extends View{
         canvas.drawRoundRect(width/14, 3*(height/8)+40, 13*(width/14), 7*(height/12)+40, 50.0f, 50.0f, paint);
         paint.setColor(Color.argb(255, 126, 217, 87));
         canvas.drawRoundRect(width/14, 7*(height/12)+80, 13*(width/14), 19*(height/24)+80, 50.0f, 50.0f, paint);
-        paint.setColor(Color.argb(255, 0, 101, 173));
-        canvas.drawRoundRect(width/14, 9*(height/10)-50, 13*(width/14), 9*(height/10)+110, 50.0f, 50.0f, paint);
         textPaint.setTextSize(80);
         textPaint.setTypeface(typefaceBold);
         textPaint.setColor(Color.WHITE);

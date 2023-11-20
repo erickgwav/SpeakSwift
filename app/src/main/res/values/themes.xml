@@ -11,4 +11,18 @@
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
     </style>
+
+    <style name="BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <!-- Cambia el color de fondo del BottomNavigationView -->
+        <item name="android:background">#0065ad</item>
+
+        <!-- Cambia el color de los iconos inactivos -->
+        <item name="itemIconTint">#ffffff</item>
+
+        <!-- Cambia el color del texto de los elementos inactivos -->
+        <item name="itemTextColor">#ffffff</item>
+
+    </style>
+
+
 </resources>

@@ -1,5 +1,6 @@
 package mx.eege.speakswift;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -12,22 +13,62 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+
 public class MainActivity extends AppCompatActivity {
 
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.inicio);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.cuentos) {
+                    showToast("Cuentos seleccionados");
+                    // Lógica para el elemento "Cuentos"
+                    return true;
+                } else if (item.getItemId() == R.id.chat) {
+                    showToast("Chat seleccionado");
+                    // Lógica para el elemento "Chat"
+                    return true;
+                } else if (item.getItemId() == R.id.inicio) {
+                    showToast("Inicio seleccionado");
+                    // Lógica para el elemento "Inicio"
+                    return true;
+                } else if (item.getItemId() == R.id.musica) {
+                    showToast("Música seleccionada");
+                    // Lógica para el elemento "Música"
+                    return true;
+                } else if (item.getItemId() == R.id.dictados) {
+                    showToast("Dictados seleccionados");
+                    // Lógica para el elemento "Dictados"
+                    return true;
+                }
+                return false;
+            }
+        });
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+    }
+
+    private void showToast(String message) {
+        // Muestra un Toast con el mensaje proporcionado
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -91,8 +132,6 @@ public class MainActivity extends AppCompatActivity {
                     .setText("Has ganado 5 XP. Vuelve a agitar el dispositivo en unos minutos para ganar más XP");
             ((Button) view.findViewById(R.id.buttonAction))
                     .setText("Entendido");
-            /*((ImageView) view.findViewById(R.id.imageIcon))
-                    .setImageResource(R.drawable.error);*/
             final AlertDialog alertDialog = builder.create();
             view.findViewById(R.id.buttonAction).setOnClickListener(new View.OnClickListener() {
                 @Override
