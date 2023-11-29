@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainView.OnRoundRectClickListener{
 
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MainView mainView = findViewById(R.id.mainView);
+        mainView.setOnRoundRectClickListener(this);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.inicio);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -67,12 +69,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startNewActivity(Class<?> cls) {
-        // Inicia una nueva Activity
         Intent intent = new Intent(MainActivity.this, cls);
         startActivity(intent);
-        // Opcional: Puedes agregar transiciones de animación entre Activities si lo deseas.
-        // overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        // Estos recursos de animación deben colocarse en el directorio res/anim.
     }
 
     @Override
@@ -110,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                     long currentTime = System.currentTimeMillis();
                     if ((currentTime - lastShakeTime) > 300000) {
                         lastShakeTime = currentTime;
-                        showErrorDialog();
+                        showRewardDialog();
                     }
                 }
             }
@@ -121,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        private void showErrorDialog(){
+        private void showRewardDialog(){
             AlertDialog.Builder builder =
                     new AlertDialog.Builder
                             (MainActivity.this, R.style.AlertDialogTheme);
@@ -133,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
             ((TextView) view.findViewById(R.id.textTitle))
                     .setText("¡Felicidades!");
             ((TextView) view.findViewById(R.id.textMessage))
-                    .setText("Has ganado 5 XP. Vuelve a agitar el dispositivo en unos minutos para ganar más XP");
+                    .setText("Has ganado 5 XP. Vuelve a agitar el dispositivo en la pantalla de inicio " +
+                            "dentro de unos minutos para ganar más XP");
             ((Button) view.findViewById(R.id.buttonAction))
                     .setText("Entendido");
             final AlertDialog alertDialog = builder.create();
@@ -149,5 +148,25 @@ public class MainActivity extends AppCompatActivity {
             alertDialog.show();
         }
     };
+
+    @Override
+    public void onRect2Click() {
+        showToast("Dictados seleccionados");
+    }
+
+    @Override
+    public void onRect3Click() {
+        startNewActivity(CuentosListaActivity.class);
+    }
+
+    @Override
+    public void onRect4Click() {
+        showToast("Música seleccionada");
+    }
+
+    @Override
+    public void onRect5Click() {
+        showToast("Chat seleccionado");
+    }
 
 }

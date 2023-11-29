@@ -27,6 +27,10 @@
             android:exported="true"
             android:theme="@style/Base.Theme.SpeakSwift"/>
         <activity
+            android:name=".CuentoActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.SpeakSwift"/>
+        <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.Design.NoActionBar"
             android:exported="true">

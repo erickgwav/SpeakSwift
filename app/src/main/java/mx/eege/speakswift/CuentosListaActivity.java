@@ -3,6 +3,7 @@ package mx.eege.speakswift;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,10 +12,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.List;
+
 public class CuentosListaActivity extends AppCompatActivity {
+    private ListView listViewCuentos;
+    private List<Cuento> listaCuentos;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_cuentos);
+        listViewCuentos = findViewById(R.id.listViewCuentos);
+        listaCuentos = obtenerListaDeCuentos();
+
+        // Configurar el adaptador para la lista
+        CuentosAdapter adapter = new CuentosAdapter(this, listaCuentos);
+        listViewCuentos.setAdapter(adapter);
+
+        // Configurar el listener para el clic en un cuento
+        listViewCuentos.setOnItemClickListener((parent, view, position, id) -> {
+            Cuento cuentoSeleccionado = listaCuentos.get(position);
+            mostrarDetalleCuento(cuentoSeleccionado);
+        });
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.cuentos);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -38,12 +56,21 @@ public class CuentosListaActivity extends AppCompatActivity {
         });
     }
 
+    private List<Cuento> obtenerListaDeCuentos() {
+        // Utiliza tu DatabaseHelper para obtener la lista de cuentos desde la base de datos
+        CuentosDB dbHelper = new CuentosDB(this);
+        return dbHelper.getAllCuentos();
+    }
+
+    private void mostrarDetalleCuento(Cuento cuento) {
+        // Inicia una nueva actividad para mostrar los detalles del cuento
+        Intent intent = new Intent(this, CuentoActivity.class);
+        intent.putExtra("cuento", cuento);
+        startActivity(intent);
+    }
+
     private void startNewActivity(Class<?> cls) {
-        // Inicia una nueva Activity
         Intent intent = new Intent(CuentosListaActivity.this, cls);
         startActivity(intent);
-        // Opcional: Puedes agregar transiciones de animación entre Activities si lo deseas.
-        // overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        // Estos recursos de animación deben colocarse en el directorio res/anim.
     }
 }
