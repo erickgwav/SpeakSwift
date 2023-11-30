@@ -71,7 +71,7 @@ public class CuentoActivity extends AppCompatActivity {
                     showToast("Música seleccionada");
                     return true;
                 } else if (item.getItemId() == R.id.dictados) {
-                    showToast("Dictados seleccionados");
+                    startNewActivity(DictadosListaActivity.class);
                     return true;
                 }
                 return false;
@@ -154,7 +154,7 @@ public class CuentoActivity extends AppCompatActivity {
                     if(correct >= 3) {
                         exp = 30;
                         CuentosDB cuentosDB = new CuentosDB(getApplicationContext());
-                        cuentosDB.actualizarCompletado(cuento.getId(), 0);
+                        cuentosDB.actualizarCompletado(cuento.getId(), 1);
                     }
                     else if(correct == 2) exp = 15;
                     else if(correct == 1) exp = 5;
@@ -224,6 +224,8 @@ public class CuentoActivity extends AppCompatActivity {
         view.findViewById(R.id.buttonAction).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ExpDB expDB = new ExpDB(getApplicationContext());
+                expDB.aumentarExp(exp);
                 alertDialog.dismiss();
                 startNewActivity(CuentosListaActivity.class);
             }

@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
-public class MainActivity extends AppCompatActivity implements MainView.OnRoundRectClickListener{
+public class MainActivity extends AppCompatActivity{
 
     private SensorManager sensorManager;
     private Sensor accelerometerSensor;
@@ -33,10 +33,17 @@ public class MainActivity extends AppCompatActivity implements MainView.OnRoundR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MainView mainView = findViewById(R.id.mainView);
-        mainView.setOnRoundRectClickListener(this);
+        ImageView libroImg = findViewById(R.id.libroImg);
+        ImageView oidoImg = findViewById(R.id.oidoImg);
+        ImageView musicaImg = findViewById(R.id.musicaImg);
+        ImageView chatImg = findViewById(R.id.chatImg);
+        TextView expTxt = findViewById(R.id.exp);
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.inicio);
+
+        ExpDB expDB = new ExpDB(getApplicationContext());
+        int exp = expDB.obtenerValorActual("1");
+        expTxt.setText("EXP: " + exp);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -53,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements MainView.OnRoundR
                     showToast("Música seleccionada");
                     return true;
                 } else if (item.getItemId() == R.id.dictados) {
-                    showToast("Dictados seleccionados");
+                    startNewActivity(DictadosListaActivity.class);
                     return true;
                 }
                 return false;
@@ -62,6 +69,31 @@ public class MainActivity extends AppCompatActivity implements MainView.OnRoundR
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+        libroImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(CuentosListaActivity.class);
+            }
+        });
+        oidoImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startNewActivity(DictadosListaActivity.class);
+            }
+        });
+        musicaImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("Música seleccionada");
+            }
+        });
+
+        chatImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("Chat seleccionado");
+            }
+        });
     }
 
     private void showToast(String message) {
@@ -149,24 +181,5 @@ public class MainActivity extends AppCompatActivity implements MainView.OnRoundR
         }
     };
 
-    @Override
-    public void onRect2Click() {
-        showToast("Dictados seleccionados");
-    }
-
-    @Override
-    public void onRect3Click() {
-        startNewActivity(CuentosListaActivity.class);
-    }
-
-    @Override
-    public void onRect4Click() {
-        showToast("Música seleccionada");
-    }
-
-    @Override
-    public void onRect5Click() {
-        showToast("Chat seleccionado");
-    }
 
 }

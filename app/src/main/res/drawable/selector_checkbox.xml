@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <layer-list>
+            <!-- Fondo cuando está seleccionado -->
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#0065ad"/>
+                    <corners android:radius="3dp"/>
+                </shape>
+            </item>
+            <!-- Borde -->
+            <item>
+                <shape android:shape="rectangle">
+                    <stroke android:color="#0065ad" android:width="2dp"/>
+                    <corners android:radius="3dp"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_checked="false">
+        <!-- Fondo cuando no está seleccionado -->
+        <shape android:shape="rectangle">
+            <solid android:color="#DFDFDF"/>
+            <corners android:radius="3dp"/>
+        </shape>
+    </item>
+</selector>

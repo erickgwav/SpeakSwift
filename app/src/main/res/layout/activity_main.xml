@@ -16,6 +16,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/exp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="EXP: 0"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/oidoImg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.701" />
 
         <TextView
             android:id="@+id/dictadosTxt"
@@ -93,7 +106,7 @@
             android:id="@+id/oidoImg"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/oido"
+            android:src="@drawable/oidop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.22"

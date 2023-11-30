@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CuentosDB extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "speak_swift";
-    private static final int DATABASE_VERSION = 4;
+    private static final String DATABASE_NAME = "speak_swiftc";
+    private static final int DATABASE_VERSION = 1;
     private static final String TABLE_CUENTOS = "cuentos";
 
     private static final String CREATE_TABLE_CUENTOS =

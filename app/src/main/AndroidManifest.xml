@@ -31,6 +31,14 @@
             android:exported="true"
             android:theme="@style/Base.Theme.SpeakSwift"/>
         <activity
+            android:name=".DictadosListaActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.SpeakSwift"/>
+        <activity
+            android:name=".DictadoActivity"
+            android:exported="true"
+            android:theme="@style/Base.Theme.SpeakSwift"/>
+        <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.Design.NoActionBar"
             android:exported="true">

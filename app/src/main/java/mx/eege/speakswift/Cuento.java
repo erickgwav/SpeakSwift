@@ -252,4 +252,5 @@ public class Cuento implements Parcelable {
         dest.writeString(answ3);
         dest.writeInt(completado);
     }
+
 }

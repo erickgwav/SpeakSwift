@@ -39,7 +39,6 @@ public class CuentosListaActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if (item.getItemId() == R.id.cuentos) {
-                    startNewActivity(CuentosListaActivity.class);
                     return true;
                 } else if (item.getItemId() == R.id.chat) {
                     return true;
@@ -49,6 +48,7 @@ public class CuentosListaActivity extends AppCompatActivity {
                 } else if (item.getItemId() == R.id.musica) {
                     return true;
                 } else if (item.getItemId() == R.id.dictados) {
+                    startNewActivity(DictadosListaActivity.class);
                     return true;
                 }
                 return false;
