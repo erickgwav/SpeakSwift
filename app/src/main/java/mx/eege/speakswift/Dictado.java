@@ -3,13 +3,19 @@ package mx.eege.speakswift;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * Clase que representa un objeto Dictado y implementa la interfaz Parcelable para permitir su paso
+ * entre componentes de la aplicación.
+ */
 public class Dictado implements Parcelable {
+    // Atributos de la clase
     private int id;
     private String titulo;
     private String archivo;
     private String palabras;
     private int completado = 0;
 
+    // Métodos getter y setter para acceder a los atributos
     public int getId() {
         return id;
     }
@@ -42,10 +48,18 @@ public class Dictado implements Parcelable {
         this.palabras = palabras;
     }
 
-    public Dictado() {
-        return;
+    public int getCompletado() {
+        return completado;
     }
 
+    public void setCompletado(int completado) {
+        this.completado = completado;
+    }
+
+    // Constructor vacío
+    public Dictado() {}
+
+    // Constructor que recibe un objeto Parcel para construir el objeto Dictado
     protected Dictado(Parcel in) {
         id = in.readInt();
         titulo = in.readString();
@@ -54,6 +68,7 @@ public class Dictado implements Parcelable {
         completado = in.readInt();
     }
 
+    // Interfaz Parcelable: Creador estático y método para crear un array de objetos Dictado
     public static final Creator<Dictado> CREATOR = new Creator<Dictado>() {
         @Override
         public Dictado createFromParcel(Parcel in) {
@@ -66,6 +81,7 @@ public class Dictado implements Parcelable {
         }
     };
 
+    // Interfaz Parcelable: Métodos para describir el contenido del objeto y escribir/leer los atributos en/desde el Parcel
     @Override
     public int describeContents() {
         return 0;
@@ -79,12 +95,5 @@ public class Dictado implements Parcelable {
         dest.writeString(palabras);
         dest.writeInt(completado);
     }
-
-    public int getCompletado() {
-        return completado;
-    }
-
-    public void setCompletado(int completado) {
-        this.completado = completado;
-    }
 }
+

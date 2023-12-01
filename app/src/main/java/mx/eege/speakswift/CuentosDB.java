@@ -28,7 +28,9 @@ public class CuentosDB extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        // Crear la tabla de cuentos al crear la base de datos
         db.execSQL(CREATE_TABLE_CUENTOS);
+        // Insertar datos iniciales en la tabla
         insertarCuentos(db);
     }
 
@@ -38,6 +40,7 @@ public class CuentosDB extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    // Insertar datos iniciales en la tabla de cuentos
     private void insertarCuentos(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put("id", 1);
@@ -110,6 +113,7 @@ public class CuentosDB extends SQLiteOpenHelper {
         values.clear();
     }
 
+    // Obtener todos los cuentos de la base de datos
     public List<Cuento> getAllCuentos() {
         List<Cuento> listaCuentos = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -146,7 +150,6 @@ public class CuentosDB extends SQLiteOpenHelper {
                 listaCuentos.add(cuento);
             } while (cursor.moveToNext());
         }
-
         // Cerrar el cursor y la conexión a la base de datos
         cursor.close();
         db.close();
@@ -154,6 +157,7 @@ public class CuentosDB extends SQLiteOpenHelper {
         return listaCuentos;
     }
 
+    // Actualizar el estado de completado de un cuento en la base de datos
     public void actualizarCompletado(int cuentoId, int valor) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

@@ -9,33 +9,43 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase que gestiona la base de datos SQLite para la tabla de dictados.
+ */
 public class DictadosDB extends SQLiteOpenHelper {
+    // Definición de constantes para el nombre de la base de datos, versión y nombre de la tabla
     private static final String DATABASE_NAME = "speak_swiftd";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_DICTADOS = "dictados";
 
+    // Definición de sentencias SQL para crear y eliminar la tabla de dictados
     private static final String CREATE_TABLE_DICTADOS =
             "CREATE TABLE " + TABLE_DICTADOS + " (id INTEGER PRIMARY KEY, titulo TEXT, archivo TEXT, palabras TEXT, " +
                     "completado INTEGER DEFAULT 0)";
 
     private static final String DROP_TABLE_DICTADOS =
             "DROP TABLE " + TABLE_DICTADOS + ";";
+
+    // Constructor de la clase
     public DictadosDB(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Método llamado al crear la base de datos
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_DICTADOS);
         insertarDictados(db);
     }
 
+    // Método llamado al actualizar la versión de la base de datos
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DICTADOS);
         onCreate(db);
     }
 
+    // Método privado para insertar datos iniciales en la tabla de dictados
     private void insertarDictados(SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put("id", 1);
@@ -109,6 +119,7 @@ public class DictadosDB extends SQLiteOpenHelper {
         values.clear();
     }
 
+    // Método para obtener todos los dictados de la tabla
     public List<Dictado> getAllDictados() {
         List<Dictado> listaDictados = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -133,6 +144,7 @@ public class DictadosDB extends SQLiteOpenHelper {
         return listaDictados;
     }
 
+    // Método para actualizar el estado "completado" de un dictado
     public void actualizarCompletado(int dictadoId, int valor) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

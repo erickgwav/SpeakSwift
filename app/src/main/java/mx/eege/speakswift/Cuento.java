@@ -189,6 +189,8 @@ public class Cuento implements Parcelable {
     public Cuento() {
         return;
     }
+
+    // Constructor que recibe un objeto Parcel y asigna los valores a los atributos
     protected Cuento(Parcel in) {
         id = in.readInt();
         titulo = in.readString();
@@ -212,6 +214,7 @@ public class Cuento implements Parcelable {
         completado = in.readInt();
     }
 
+    // Creador estático necesario para implementar Parcelable
     public static final Creator<Cuento> CREATOR = new Creator<Cuento>() {
         @Override
         public Cuento createFromParcel(Parcel in) {
@@ -224,6 +227,7 @@ public class Cuento implements Parcelable {
         }
     };
 
+    // Métodos de Parcelable
     @Override
     public int describeContents() {
         return 0;

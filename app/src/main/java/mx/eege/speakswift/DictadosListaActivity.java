@@ -13,12 +13,19 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.List;
 
+/**
+ * Actividad que muestra una lista de dictados.
+ */
 public class DictadosListaActivity extends AppCompatActivity {
     private ListView listViewDictados;
     private List<Dictado> listaDictados;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_dictados);
+
+        // Inicializar vistas y datos
         listViewDictados = findViewById(R.id.listViewDictados);
         listaDictados = obtenerListaDeDictados();
 
@@ -26,17 +33,19 @@ public class DictadosListaActivity extends AppCompatActivity {
         DictadosAdapter adapter = new DictadosAdapter(this, listaDictados);
         listViewDictados.setAdapter(adapter);
 
-        // Configurar el listener para el clic en un cuento
+        // Configurar el listener para el clic en un dictado
         listViewDictados.setOnItemClickListener((parent, view, position, id) -> {
             Dictado dictadoSeleccionado = listaDictados.get(position);
             mostrarDetalleDictado(dictadoSeleccionado);
         });
 
+        // Configurar la barra de navegación inferior
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.dictados);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                // Manejar la selección de elementos de la barra de navegación
                 if (item.getItemId() == R.id.cuentos) {
                     startNewActivity(CuentosListaActivity.class);
                     return true;
@@ -55,21 +64,23 @@ public class DictadosListaActivity extends AppCompatActivity {
         });
     }
 
+    // Método para obtener la lista de dictados desde la base de datos
     private List<Dictado> obtenerListaDeDictados() {
-        // Utiliza tu DatabaseHelper para obtener la lista de cuentos desde la base de datos
         DictadosDB dbHelper = new DictadosDB(this);
         return dbHelper.getAllDictados();
     }
 
-    private void mostrarDetalleDictado(Dictado dictado) {
-        // Inicia una nueva actividad para mostrar los detalles del cuento
-        Intent intent = new Intent(this, DictadoActivity.class);
-        intent.putExtra("dictado", dictado);
-        startActivity(intent);
-    }
-
+    // Método para iniciar una nueva actividad
     private void startNewActivity(Class<?> cls) {
         Intent intent = new Intent(DictadosListaActivity.this, cls);
         startActivity(intent);
     }
+
+    // Método para mostrar los detalles de un dictado
+    private void mostrarDetalleDictado(Dictado dictado) {
+        Intent intent = new Intent(this, DictadoActivity.class);
+        intent.putExtra("dictado", dictado);
+        startActivity(intent);
+    }
 }
+

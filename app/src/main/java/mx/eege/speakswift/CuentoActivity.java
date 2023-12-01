@@ -52,9 +52,11 @@ public class CuentoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cuento);
 
+        // Inicialización de elementos de la interfaz
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.cuentos);
 
+        // Configuración del BottomNavigationView y su listener para la navegación entre actividades
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -136,6 +138,7 @@ public class CuentoActivity extends AppCompatActivity {
 
         Button submitButton = findViewById(R.id.submit);
 
+        // Configuración del listener para el botón de envío de respuestas
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,37 +147,48 @@ public class CuentoActivity extends AppCompatActivity {
                 int selectedRadioButtonId2 = radioGroup2.getCheckedRadioButtonId();
                 int selectedRadioButtonId3 = radioGroup3.getCheckedRadioButtonId();
 
+                // Verificar si se seleccionó una opción en cada pregunta
                 if (selectedRadioButtonId1 != -1 && selectedRadioButtonId2 != -1 && selectedRadioButtonId3 != -1) {
                     String valorSeleccionado1 = getResources().getResourceEntryName(selectedRadioButtonId1);
                     String valorSeleccionado2 = getResources().getResourceEntryName(selectedRadioButtonId2);
                     String valorSeleccionado3 = getResources().getResourceEntryName(selectedRadioButtonId3);
+
+                    // Verificar respuestas y calcular puntaje
                     if(valorSeleccionado1.equals(answ1)) correct++;
                     if(valorSeleccionado2.equals(answ2)) correct++;
                     if(valorSeleccionado3.equals(answ3)) correct++;
+
+                    // Asignar experiencia según el puntaje obtenido y actualizar en la base de datos
                     if(correct >= 3) {
                         exp = 30;
                         CuentosDB cuentosDB = new CuentosDB(getApplicationContext());
                         cuentosDB.actualizarCompletado(cuento.getId(), 1);
+                    } else if(correct == 2) {
+                        exp = 15;
+                    } else if(correct == 1) {
+                        exp = 5;
                     }
-                    else if(correct == 2) exp = 15;
-                    else if(correct == 1) exp = 5;
                     showResultsDialog(correct, exp);
                 } else {
+                    // Mostrar un mensaje si no se seleccionó una opción en cada pregunta
                     Toast.makeText(getApplicationContext(), "Selecciona una opción en cada pregunta", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
+    // Método para mostrar un mensaje Toast
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
+    // Método para iniciar una nueva actividad
     private void startNewActivity(Class<?> cls) {
         Intent intent = new Intent(CuentoActivity.this, cls);
         startActivity(intent);
     }
 
+    // Método para leer el contenido de un archivo
     private String leerContenidoArchivo(String ruta) {
         StringBuilder contenido = new StringBuilder();
         try {
@@ -182,6 +196,7 @@ public class CuentoActivity extends AppCompatActivity {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             String line;
 
+            // Leer el contenido línea por línea y agregarlo al StringBuilder
             while ((line = bufferedReader.readLine()) != null) {
                 contenido.append(line).append("\n");
             }
@@ -192,6 +207,7 @@ public class CuentoActivity extends AppCompatActivity {
         return contenido.toString();
     }
 
+    // Método para mostrar un cuadro de diálogo con los resultados de la actividad
     public void showResultsDialog(int correct, int exp){
         AlertDialog.Builder builder =
                 new AlertDialog.Builder
@@ -201,38 +217,43 @@ public class CuentoActivity extends AppCompatActivity {
                 (ConstraintLayout)findViewById(R.id.layoutDialogContainer)
         );
         builder.setView(view);
-        if(correct >= 3) {
+        // Configuración del cuadro de diálogo según el puntaje obtenido
+        if (correct >= 3) {
             ((TextView) view.findViewById(R.id.textTitle))
-                    .setText("¡Felicidades!");
+                    .setText("¡Excelente trabajo!");
             ((TextView) view.findViewById(R.id.textMessage))
-                    .setText("Has completado satisfactoriamente esta actividad");
-        } else if(correct == 2){
+                    .setText("Has superado con éxito esta actividad. ¡Sigue así!");
+        } else if (correct == 2) {
             ((TextView) view.findViewById(R.id.textTitle))
-                    .setText("¡Casi lo tienes!");
+                    .setText("¡Casi lo logras!");
             ((TextView) view.findViewById(R.id.textMessage))
-                    .setText("Has respondido correctamente " + correct + " de 3 preguntas. Vuelve a intentarlo.");
-        }
-        else{
+                    .setText("Has respondido correctamente " + correct + " de 3 preguntas. Tienes el potencial, ¡inténtalo de nuevo!");
+        } else {
             ((TextView) view.findViewById(R.id.textTitle))
                     .setText("¡Ups!");
             ((TextView) view.findViewById(R.id.textMessage))
-                    .setText("Has respondido correctamente " + correct + " de 3 preguntas. Vuelve a intentarlo.");
+                    .setText("Has respondido correctamente " + correct + " de 3 preguntas. No te preocupes, sigue practicando y mejorarás.");
         }
+        // Configuración del botón en el cuadro de diálogo para obtener experiencia
         ((Button) view.findViewById(R.id.buttonAction))
                 .setText("Obtener +" + exp + " EXP");
         final AlertDialog alertDialog = builder.create();
+        // Configuración del listener para el botón en el cuadro de diálogo
         view.findViewById(R.id.buttonAction).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Aumentar la experiencia en la base de datos y cerrar el cuadro de diálogo
                 ExpDB expDB = new ExpDB(getApplicationContext());
                 expDB.aumentarExp(exp);
                 alertDialog.dismiss();
                 startNewActivity(CuentosListaActivity.class);
             }
         });
+        // Configuración del fondo del cuadro de diálogo
         if (alertDialog.getWindow() != null){
             alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
         }
+        // Mostrar el cuadro de diálogo
         alertDialog.show();
     }
 }

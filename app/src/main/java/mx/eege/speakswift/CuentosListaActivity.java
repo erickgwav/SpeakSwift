@@ -17,22 +17,23 @@ import java.util.List;
 public class CuentosListaActivity extends AppCompatActivity {
     private ListView listViewCuentos;
     private List<Cuento> listaCuentos;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_cuentos);
+        // Inicialización de la ListView y obtención de la lista de cuentos
         listViewCuentos = findViewById(R.id.listViewCuentos);
         listaCuentos = obtenerListaDeCuentos();
-
-        // Configurar el adaptador para la lista
+        // Configuración del adaptador para la lista
         CuentosAdapter adapter = new CuentosAdapter(this, listaCuentos);
         listViewCuentos.setAdapter(adapter);
-
-        // Configurar el listener para el clic en un cuento
+        // Configuración del listener para el clic en un cuento
         listViewCuentos.setOnItemClickListener((parent, view, position, id) -> {
             Cuento cuentoSeleccionado = listaCuentos.get(position);
             mostrarDetalleCuento(cuentoSeleccionado);
         });
-
+        // Configuración del BottomNavigationView y su listener para la navegación entre actividades
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.cuentos);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -57,7 +58,7 @@ public class CuentosListaActivity extends AppCompatActivity {
     }
 
     private List<Cuento> obtenerListaDeCuentos() {
-        // Utiliza tu DatabaseHelper para obtener la lista de cuentos desde la base de datos
+        // Utiliza tu DatabaseHelper (CuentosDB) para obtener la lista de cuentos desde la base de datos
         CuentosDB dbHelper = new CuentosDB(this);
         return dbHelper.getAllCuentos();
     }
@@ -70,7 +71,9 @@ public class CuentosListaActivity extends AppCompatActivity {
     }
 
     private void startNewActivity(Class<?> cls) {
+        // Método para iniciar una nueva actividad
         Intent intent = new Intent(CuentosListaActivity.this, cls);
         startActivity(intent);
     }
 }
+
