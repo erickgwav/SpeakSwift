@@ -11,7 +11,7 @@ import java.util.List;
 
 // Clase que gestiona la base de datos SQLite para el progreso de la aplicación
 public class ExpDB extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "speak_swifte";
+    private static final String DATABASE_NAME = "speak_swiftex";
     private static final int DATABASE_VERSION = 1;
 
     // Consulta SQL para crear la tabla de progreso
@@ -61,7 +61,6 @@ public class ExpDB extends SQLiteOpenHelper {
         values.put("exp", nuevoValor);
         db.update("progreso", values, "id = ?", new String[]{"1"});
         // Cierra la conexión a la base de datos
-        db.close();
     }
 
     // Método para obtener el valor actual de experiencia
@@ -80,8 +79,6 @@ public class ExpDB extends SQLiteOpenHelper {
             }
             cursor.close();
         }
-        // Cierra la conexión a la base de datos
-        db.close();
         return valorActual;
     }
 }

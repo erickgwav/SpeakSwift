@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class DictadosDB extends SQLiteOpenHelper {
     // Definición de constantes para el nombre de la base de datos, versión y nombre de la tabla
-    private static final String DATABASE_NAME = "speak_swiftd";
+    private static final String DATABASE_NAME = "speak_swiftdi";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_DICTADOS = "dictados";
 
@@ -139,7 +139,6 @@ public class DictadosDB extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
         cursor.close();
-        db.close();
 
         return listaDictados;
     }
@@ -150,6 +149,5 @@ public class DictadosDB extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("completado", valor);
         db.update(TABLE_DICTADOS, values, "id = ?", new String[]{String.valueOf(dictadoId)});
-        db.close();
     }
 }

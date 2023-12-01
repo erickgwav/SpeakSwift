@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CuentosDB extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "speak_swiftc";
+    private static final String DATABASE_NAME = "speak_swiftcu";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_CUENTOS = "cuentos";
 
@@ -152,7 +152,6 @@ public class CuentosDB extends SQLiteOpenHelper {
         }
         // Cerrar el cursor y la conexión a la base de datos
         cursor.close();
-        db.close();
 
         return listaCuentos;
     }
@@ -163,6 +162,5 @@ public class CuentosDB extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("completado", valor);
         db.update(TABLE_CUENTOS, values, "id = ?", new String[]{String.valueOf(cuentoId)});
-        db.close();
     }
 }
